@@ -98,25 +98,7 @@ Install the frontend dependencies:
 npm install
 ```
 
----
 
-# 7. Configure Frontend Environment Variables
-
-Inside the `frontend/` directory, create:
-
-```text
-.env
-```
-
-Add:
-
-```env
-VITE_API_URL=http://127.0.0.1:8000/api
-```
-
-Again, do not commit your personal `.env` file. The repository should contain `.env.example`.
-
----
 
 # 8. Start the Frontend
 
@@ -126,13 +108,7 @@ Run:
 npm run dev
 ```
 
-Vite will provide a local URL, normally:
 
-```text
-http://127.0.0.1:5173
-```
-
----
 
 # Final Development Setup
 
@@ -164,10 +140,6 @@ http://127.0.0.1:8000/api
 ```
 
 ## Important Git Rules
-
-* Do not commit `.env` files.
-* Do not commit the `venv/` directory.
-* Do not commit `node_modules/`.
 * Before starting a new feature, create a new Git branch.
 * Do not directly work on the `main` branch.
 * Pull the latest changes before starting your work.
