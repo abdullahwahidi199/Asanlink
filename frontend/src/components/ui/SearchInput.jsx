@@ -1,9 +1,11 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import Button from './Button'
 
 export default function SearchInput({ value = '', onSearch, placeholder = 'Search…', label = 'Search' }) {
   const [query, setQuery] = useState(value)
+
+  useEffect(() => setQuery(value), [value])
 
   const submit = (event) => {
     event.preventDefault()

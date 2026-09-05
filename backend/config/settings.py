@@ -41,14 +41,19 @@ if not SECRET_KEY:
         raise ImproperlyConfigured("DJANGO_SECRET_KEY must be set when DJANGO_DEBUG is false.")
     SECRET_KEY = "development-only-key-set-DJANGO_SECRET_KEY-in-production"
 
-ALLOWED_HOSTS = env_list("DJANGO_ALLOWED_HOSTS", "127.0.0.1,localhost")
+ALLOWED_HOSTS = env_list(
+    "DJANGO_ALLOWED_HOSTS",
+    "127.0.0.1,localhost,192.168.0.106",
+)
+
 CORS_ALLOWED_ORIGINS = env_list(
     "CORS_ALLOWED_ORIGINS",
-    "http://127.0.0.1:5173,http://localhost:5173",
+    "http://127.0.0.1:5173,http://localhost:5173,http://192.168.0.106:5173",
 )
+
 CSRF_TRUSTED_ORIGINS = env_list(
     "CSRF_TRUSTED_ORIGINS",
-    "http://127.0.0.1:5173,http://localhost:5173",
+    "http://127.0.0.1:5173,http://localhost:5173,http://192.168.0.106:5173",
 )
 # Application definition
 
@@ -64,6 +69,8 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt.token_blacklist',
     'corsheaders',
     'accounts.apps.AccountsConfig',
+    'finance.apps.FinanceConfig',
+    'website.apps.WebsiteConfig',
 ]
 
 MIDDLEWARE = [
@@ -149,6 +156,14 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+DATA_UPLOAD_MAX_MEMORY_SIZE = int(os.getenv('DATA_UPLOAD_MAX_MEMORY_SIZE', str(12 * 1024 * 1024)))
+FILE_UPLOAD_MAX_MEMORY_SIZE = int(os.getenv('FILE_UPLOAD_MAX_MEMORY_SIZE', str(10 * 1024 * 1024)))
+
+COMPANY_NAME = os.getenv('COMPANY_NAME', 'Asanlink')
+PUBLIC_SITE_CACHE_TIMEOUT = int(os.getenv('PUBLIC_SITE_CACHE_TIMEOUT', '60'))
+
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'accounts.User'
@@ -191,16 +206,12 @@ SECURE_HSTS_PRELOAD = env_bool('SECURE_HSTS_PRELOAD', not DEBUG)
 # Email
 # https://docs.djangoproject.com/en/6.1/topics/email/#topic-email-configuration
 
-MAILERS = {
-    'default': {
-        'BACKEND': os.getenv(
-            'EMAIL_BACKEND',
-            'django.core.mail.backends.console.EmailBackend'
-            if DEBUG
-            else 'django.core.mail.backends.smtp.EmailBackend',
-        ),
-    },
-}
+EMAIL_BACKEND = os.getenv(
+    'EMAIL_BACKEND',
+    'django.core.mail.backends.console.EmailBackend'
+    if DEBUG
+    else 'django.core.mail.backends.smtp.EmailBackend',
+)
 
 EMAIL_HOST = os.getenv('EMAIL_HOST', 'localhost')
 EMAIL_PORT = int(os.getenv('EMAIL_PORT', '25'))

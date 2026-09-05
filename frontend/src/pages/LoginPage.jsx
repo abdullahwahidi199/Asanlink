@@ -27,7 +27,7 @@ export default function LoginPage() {
     }
   }, [searchParams])
 
-  if (!isLoading && isAuthenticated) return <Navigate to="/" replace />
+  if (!isLoading && isAuthenticated) return <Navigate to="/manage" replace />
 
   const update = (event) => {
     setForm((current) => ({ ...current, [event.target.name]: event.target.value }))
@@ -47,7 +47,7 @@ export default function LoginPage() {
       addToast({ type: 'success', title: 'Welcome back', message: 'You are signed in to Asanlink Central.' })
       const stateDestination = location.state?.from?.pathname
       const queryDestination = searchParams.get('from')
-      const destination = stateDestination || (queryDestination?.startsWith('/') ? queryDestination : '/')
+      const destination = stateDestination || (queryDestination?.startsWith('/') ? queryDestination : '/manage')
       navigate(destination, { replace: true })
     } catch (requestError) {
       setError(getApiError(requestError, 'Unable to sign in with those credentials.').message)

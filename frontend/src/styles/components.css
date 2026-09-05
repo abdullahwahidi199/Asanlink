@@ -158,6 +158,29 @@ textarea { resize: vertical; line-height: 1.5; }
 .dropdown__identity strong { font-size: var(--font-size-meta); font-weight: var(--font-weight-semibold); }
 .dropdown__identity span { color: var(--text-secondary); font-size: var(--font-size-xs); overflow-wrap: anywhere; }
 
+.filter-toolbar { min-width: 0; border: 1px solid var(--border); border-radius: 0.75rem; background: color-mix(in srgb, var(--surface) 82%, var(--background)); }
+.filter-toolbar__layout { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: end; gap: 0.6rem; padding: 0.55rem 0.65rem; }
+.filter-toolbar__trigger { display: inline-flex; align-items: center; justify-content: center; gap: 0.38rem; min-height: 2.25rem; padding: 0.45rem 0.62rem; border: 1px solid var(--border); border-radius: 0.55rem; color: var(--text); background: var(--surface); font-size: var(--font-size-meta); font-weight: var(--font-weight-semibold); cursor: pointer; white-space: nowrap; }
+.filter-toolbar__trigger:hover { color: var(--primary); border-color: var(--border-strong); background: var(--primary-light); }
+.filter-toolbar__count { display: grid; place-items: center; min-width: 1.15rem; height: 1.15rem; padding: 0 0.25rem; border-radius: 999px; color: var(--on-primary); background: var(--primary); font-size: 0.625rem; line-height: 1; }
+.filter-toolbar__chevron { transition: transform 160ms ease; }
+.filter-toolbar--expanded .filter-toolbar__chevron { transform: rotate(180deg); }
+.filter-toolbar__controls { display: grid; grid-template-columns: repeat(var(--filter-toolbar-columns, 4), minmax(6.75rem, 1fr)); gap: 0.5rem; min-width: 0; }
+.filter-toolbar__controls[hidden] { display: none; }
+.filter-toolbar__controls > label, .filter-toolbar__controls > .field { display: flex; flex-direction: column; gap: 0.25rem; min-width: 0; color: var(--text-secondary); font-size: var(--font-size-xs); font-weight: var(--font-weight-semibold); }
+.filter-toolbar__controls > .field { align-self: stretch; }
+.filter-toolbar__controls > label > span, .filter-toolbar__controls > .field > label { overflow: hidden; color: var(--text-secondary); font-size: var(--font-size-xs); line-height: 1.25; text-overflow: ellipsis; white-space: nowrap; }
+.filter-toolbar__controls .input, .filter-toolbar__controls .select { min-height: 2.25rem; padding: 0.48rem 0.6rem; border-radius: 0.55rem; background: var(--surface); font-size: var(--font-size-meta); }
+.filter-toolbar__controls .filter-control--active > .input, .filter-toolbar__controls .filter-control--active > .select { border-color: color-mix(in srgb, var(--primary) 62%, var(--border)); background: color-mix(in srgb, var(--primary-light) 45%, var(--surface)); box-shadow: inset 2px 0 var(--primary); }
+.filter-toolbar__reset { align-self: end; min-height: 2.25rem; white-space: nowrap; }
+
+@media (max-width: 1280px) {
+  .filter-toolbar__layout { grid-template-columns: minmax(0, 1fr) auto; align-items: center; }
+  .filter-toolbar__trigger { grid-column: 1; grid-row: 1; justify-self: start; }
+  .filter-toolbar__controls { grid-column: 1 / -1; grid-row: 2; }
+  .filter-toolbar__reset { grid-column: 2; grid-row: 1; }
+}
+
 .toast-viewport { position: fixed; z-index: 200; top: 1rem; right: 1rem; display: grid; gap: 0.65rem; width: min(24rem, calc(100vw - 2rem)); }
 .toast { display: flex; align-items: flex-start; justify-content: space-between; gap: 0.8rem; padding: 0.9rem 1rem; border: 1px solid var(--border); border-left: 4px solid var(--info); border-radius: 0.75rem; background: var(--surface-elevated); box-shadow: var(--shadow-md); }
 .toast--success { border-left-color: var(--success); }
@@ -191,6 +214,8 @@ textarea { resize: vertical; line-height: 1.5; }
   .action-group { width: 100%; min-width: 0; gap: 0.375rem; }
   .table-action-button { width: 2.25rem; min-height: 2.25rem; }
   .pagination { justify-content: center; }
+  .filter-toolbar__controls { display: flex; padding-bottom: 0.15rem; overflow-x: auto; overscroll-behavior-inline: contain; scroll-snap-type: inline proximity; scrollbar-width: thin; }
+  .filter-toolbar__controls > label, .filter-toolbar__controls > .field { flex: 0 0 min(10rem, 68vw); scroll-snap-align: start; }
 }
 
 @media (prefers-reduced-motion: reduce) {

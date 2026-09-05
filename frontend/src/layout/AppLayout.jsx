@@ -50,7 +50,11 @@ export default function AppLayout() {
             <button className="icon-button mobile-menu" type="button" onClick={() => setMobileOpen(true)} aria-label="Open navigation">
               <Icon name="menu" />
             </button>
-            <div><span className="topbar__context">Workspace</span><strong>{activeItem?.label || 'Asanlink Central'}</strong></div>
+            <nav className="topbar__breadcrumb" aria-label="Current workspace">
+              <span>Asanlink</span>
+              <span className="topbar__divider" aria-hidden="true">/</span>
+              <strong>{activeItem?.label || 'Central'}</strong>
+            </nav>
           </div>
           <div className="topbar__actions">
             <ThemeToggle />

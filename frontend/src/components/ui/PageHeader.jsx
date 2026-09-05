@@ -1,6 +1,6 @@
-export default function PageHeader({ eyebrow, title, description, actions }) {
+export default function PageHeader({ eyebrow, title, description, actions, variant = 'default' }) {
   return (
-    <div className="page-header">
+    <div className={`page-header page-header--${variant}`}>
       <div>
         {eyebrow && <span className="page-header__eyebrow">{eyebrow}</span>}
         <h1>{title}</h1>
@@ -10,4 +10,3 @@ export default function PageHeader({ eyebrow, title, description, actions }) {
     </div>
   )
 }
-
